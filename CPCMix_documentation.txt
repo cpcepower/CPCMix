@@ -1,0 +1,173 @@
+- ---------------------------------------------------------------------------- -
+                             - Megachur presents -
+                   - Amstrad CPC Musics Ultimate Compilation -
+- ---------------------------------------------------------------------------- -
+
+The musics are copyright of their respective owners.
+Thanks to all the authors for their fabulous work !!!
+
+- Z80 Code by Megachur (Menu, FDC driver, PSG analyser)
+- Testing and no design by Megachur
+- Extraction of the musics player by Megachur from october 2006 to july 2020
+
+I have used these tools during the developpement :
+--------------------------------------------------
+- WinAPE for debugging, extracting code of music player and compiling binary Z80
+- PSPad or Notepad++ (for writing Z80 code)
+- ManageDSK (to write file on DSK) -> Thanks Demoniak, I hope to see a new
+version with new features soon !
+- Please, contact me at the email cpcepower(at)gmail.com, if you want that
+I add any information missing (author, etc.), adding new feature
+or any new music !
+
+Amstrad fanatic, I hope you will enjoy this work and you will appreciate to
+listen to these marvelous musics !!!
+
+I have not extracted all the amstrad cpc music :
+- some musics have been extracted but their code aren't clean (work in progress)
+- some musics haven't been extracted yet because I don't know them
+
+So feel free to contribute to this project !!!
+
+Note : all the sources will be soon available in GitHub now
+https://github.com/cpcepower/CPCMix
+
+Please, check this, and if you're interested, help me to clean some new musics !
+
+Note :
+------
+This program don't work with some emulation program.
+For example, for Winape you must disable "Fast Disk Emulation" option !
+
+This compilation use more than 64 ko because of the memory management (banks)
+to be compatible with all the musics.
+
+- ---------------------------------------------------------------------------- -
+            To run this player, run"CPCMIX" on the last disk !!! 
+- ---------------------------------------------------------------------------- -
+
+- ---------------------------------------------------------------------------- -
+a) How to make your own compilation of musics or how to add a new music file ?
+- ---------------------------------------------------------------------------- -
+
+The file include the player and the datas.
+Their aren't packed so you can make your own compilation. Use a tool like
+ManageDSK, create a DSK file and add file with no AMSDOS header.
+Run the main program of Amstrad CPC Musics Ultimate Compilation
+then insert the disk -> press the keys (see below) and listen !
+
+Enjoy this nice feature ;-)
+
+If you have a new music and want to add it to the collection :
+
+- contact me to inform me (I love to listen to a new amstrad cpc music ;-))
+- you must include the header and the footer i made and define some addresses
+(init_music, play_music, stop_music, music_end)
+then compile it and write the binary with no AMSDOS header (ASCII binary)
+- the music length  must not be superior to &7c00 (memory limitation) or it
+will not work with this code
+
+- ---------------------------------------------------------------------------- -
+b) The differents keys available are :
+- ---------------------------------------------------------------------------- -
+
+at the first menu press key :
+
+- RETURN : load directory of disk, load and play next music
+
+- CURSOR UP : go to previous directory entry
+
+- CURSOR DOWN : go to next directory entry
+if it's the last entry then go to first entry of the directory
+
+- A : select drive A
+
+- B : select drive B
+
+- SPACE : load and play the music
+
+when loading file on the disk
+if the sentence "Please, insert disk in drive" appears
+press "A" to set disk drive A
+press "B" to set disk drive B
+press escape to stop loading this file and go to first menu
+press any key other key to restard loading
+
+if you insert another disk, after 5 retries, it will load the directory
+of the new disk.
+
+during the playing of the music press key :
+
+- ESCAPE : stop playing of the current music and go to first menu
+
+- F : en/disable a duration of only three minutes of the theme of the music
+also, if no activity of PSG for awhile : call to the next theme of the music
+(some musics have no end detection or end detection is not usable with
+this player)
+
+- P : activate display of PSG registers and disable the display of spectrum 
+analyzer
+
+- R : en/disable music loop
+
+- S : activate the display of spectrum analyzer and disable display of PSG 
+registers
+
+- SPACE : stop music, load and play next music
+
+- CURSOR LEFT : play the previous theme of the current music
+
+- CURSOR RIGHT : play the next theme of the current music
+if it is the last theme of the current music and if the music loop is disable
+then load and play next music (same as press "space") else play first theme of 
+the current music
+
+- ---------------------------------------------------------------------------- -
+                         - The Story of this artwork -
+- ---------------------------------------------------------------------------- -
+
+This work is specialy dedicated to all my family !
+
+I've extracted some music player and I was thinking that I can make a sort of 
+universal player to play them all.
+
+Finaly, after more than 600 music code extracted, I created a program that can 
+load and play all this different musics code.
+
+I hope all of you will appreciate to listen to this oldies !
+
+- ---------------------------------------------------------------------------- -
+                   - My Personnal Greetings flies to : -
+- ---------------------------------------------------------------------------- -
+
+iX ; author of the nice amstrad revival site http://www.amstradtoday.com/
+for his great works about Amstrad CPC Tunning and the nice design !
+
+Grimmy of Grimware factory : I hope to see one of your fantastic production soon
+
+SuperSly : Flash...ouille Inside !!! Sad you stop making graphics... 
+
+NoRecess : Your last demo was beautiful with nice effects.
+
+Demoniak : I hope to see more improvement of your nice tools
+
+Hermol of http://cpcrulez.fr : you're a happy hacker, stay like that !
+
+http://www.phenixinformatique.com team : one of the best site full of amstrad
+passion !!!
+
+Longshot : I do not know if you will release a new demo for the amstrad soon,
+but I hope it will be soon because I'm sure it will good for my brain !!!
+
+Mic : CPC Cracking history rulez !!!
+
+Richard Wilson : Winape is a nice CPC emulator, I hope to see more improvement 
+in the next release !
+
+Kukulcan : https://www.cpc-power.com/ is good for us ! 
+
+All others Amstrad fans !!!
+
+And especialy, people who code something new on amstrad today !!! 
+
+Good Luck for releasing your work soon ! ;-)
