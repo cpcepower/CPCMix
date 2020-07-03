@@ -19,7 +19,12 @@ use cpcmix;
 fn main() {
     thread::spawn(|| {
     let args: Vec<String> = env::args().collect();
-    assert_eq!(args.len(), 3, "{} <m4ip> <music>", args[0]);
+    assert_eq!(args.len(), 3, "{} <m4ip> <command>
+with <command> having such values:
+ - random: play a random music
+ - list: list all musics keys
+ - <key> plays the music with key <key>
+    ", args[0]);
     let cpcip = &args[1];
     let cmd = &args[2];
 
