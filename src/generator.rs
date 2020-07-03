@@ -49,8 +49,8 @@ loop
 
 		jp loop
 		",
-		dbg!(header.init_call_address()),
-		dbg!(header.play_call_address())
+		header.init_call_address(),
+		header.play_call_address()
 		);
 
 
@@ -59,7 +59,7 @@ loop
 		org {}
 		db {}
 		",
-		dbg!(header.load_adress()),
+		header.load_adress(),
 		self.content()
 			.iter()
 			.map(|v| v.to_string())
@@ -72,7 +72,6 @@ loop
 
 	pub fn sna(&self) -> Snapshot {
 		let code = self.code();
-		println!("{}", code);
 		let listing = Listing::from_str(&code).unwrap();
 		let env = visit_tokens_all_passes(&listing).unwrap();
 		env.sna().clone()

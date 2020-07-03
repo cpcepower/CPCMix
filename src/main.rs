@@ -5,7 +5,7 @@ use cpclib::sna::*;
 use cpclib::xfer::*;
 use std::env;
 use std::thread;
-
+use itertools::Itertools;
 use cpcmix;
 
 
@@ -19,11 +19,11 @@ use cpcmix;
 fn main() {
     thread::spawn(|| {
     let args: Vec<String> = env::args().collect();
-    assert_eq!(args.len(), 3, "{} <m4ip> <command>
+    assert!(args.len() ==  3 || args.len() == 4, "{} <m4ip> <command>
 with <command> having such values:
  - random: play a random music
- - list: list all musics keys
- - <key> plays the music with key <key>
+ - list: list all musics keys. Take an optional argument that corresponds to the author.
+ - <key> plays the music with key <key>. If it does not exists, search a music of author <key>
     ", args[0]);
     let cpcip = &args[1];
     let cmd = &args[2];
@@ -33,18 +33,57 @@ with <command> having such values:
     
     //let music =  mix.random(&mut rng);
     let music = match cmd.as_ref() {
-        "random" => mix.random(&mut rng),
+        "random" => Some(mix.random(&mut rng)),
         "list" => {
+
+            let repr = mix.keys()
+                .map(|k| (k, mix.music(k).unwrap()))
+                .map(|(k, m) | (
+                    k,
+                    m.title().unwrap_or("".to_owned()), 
+                    m.author().unwrap_or("".to_owned())
+                ))
+                .filter(|(k,t,a)| {
+                    if args.len() == 3 {
+                        true
+                    }
+                    else {
+                        a.to_lowercase() == args[3].to_lowercase()
+                    }
+                })
+                .map(|(k, t, a) | {
+                    format!(
+                        "{} - {} by {} ",
+                        k,
+                        t,
+                        a
+                    )
+                })
+                .join("\n");
+
+
             println!(
-                "{} musics.\n{:?}", 
-                mix.keys().collect::<Vec<_>>().len(),
-                mix.keys().collect::<Vec<_>>()
+                "{}", 
+                repr
             );
             return;
-            unreachable!()
         }
-        any => mix.music(any).unwrap()
+        any => mix.music(any)
     };
+
+    let music = match music {
+        Some(music) => music,
+        None => {
+            eprintln!("Unable to find '{}'.", cmd);
+            eprintln!("TODO - search a music of the given author");
+            return;
+        }
+    };
+
+    println!("{} by {}", 
+            music.title().unwrap_or("??".to_owned()),
+            music.author().unwrap_or("??".to_owned())
+    );
 
     let sna = music.sna();
     let xfer = CpcXfer::new(cpcip);

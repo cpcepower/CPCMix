@@ -178,6 +178,23 @@ impl Music {
 		Ok(info)
 	}
 
+	// panic if info not properly set
+	pub fn author(&self) -> Result<String, String> {
+		let infos = self.info()?;
+		let line = infos.split('\n').next().unwrap();
+		let bloc = line.split('(').last().unwrap();
+		let author = bloc.split(")").next().unwrap();
+		Ok(author.to_owned())
+	}
+
+	// panic if info not properly set
+	pub fn title(&self) -> Result<String, String> {
+		let infos = self.info()?;
+		let line = infos.split('\n').next().unwrap();
+		let title = line.split('(').next().unwrap();
+		Ok(title.to_owned())
+	}
+
 	pub fn content(&self) -> &[u8] {
 		&self.data
 	}
