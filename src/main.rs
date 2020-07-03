@@ -1,11 +1,11 @@
-mod db;
-mod generator;
+
 
 use rand::seq::IteratorRandom;
 use cpclib::sna::*;
 use cpclib::xfer::*;
-
 use std::env;
+
+use cpcmix;
 
 
 /// Dummy player
@@ -22,7 +22,7 @@ fn main() {
     let cmd = &args[2];
 
     let mut rng = rand::thread_rng();
-    let mix = db::CpcMix::new();
+    let mix = cpcmix::db::CpcMix::new();
     
     //let music =  mix.random(&mut rng);
     let music = match cmd.as_ref() {

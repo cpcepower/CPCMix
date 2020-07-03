@@ -2,6 +2,8 @@ use rand::seq::IteratorRandom;
 use rand::rngs::ThreadRng;
 use itertools::Itertools;
 
+pub use std::convert::TryFrom;
+
 include!(concat!(env!("OUT_DIR"), "/", "db.rs")); 
 
 /// Header definition
@@ -85,18 +87,27 @@ impl MusicHeader {
 
 }
 
-impl From<&[u8]> for MusicHeader {
-	fn from(stream: &[u8]) -> Self {
+impl TryFrom<&[u8]> for MusicHeader {
+	type Error = String;
 
-		assert_eq!(stream.len(), Self::len());
-		assert_eq!(stream[25] as char, 'M');
-		assert_eq!(stream[26] as char, 'e');
-		assert_eq!(stream[27] as char, 'g');
-		assert_eq!(stream[28] as char, 'a');
-		assert_eq!(stream[29] as char, 'c');
-		assert_eq!(stream[30] as char, 'h');
-		assert_eq!(stream[31] as char, 'u');
-		assert_eq!(stream[32] as char, 'r');
+	fn try_from(stream: &[u8]) -> Result<Self, Self::Error> {
+
+		if stream.len() != Self::len() {
+			return Err("Wrong size".to_owned());
+		}
+
+		for (idx, chr) in "Megachur".chars().enumerate() {
+			if stream[25 + idx] as char != chr {
+				return Err(
+					format!(
+						"Wrong char in {}. {} obtained instead of {}",
+						idx + 25,
+						stream[25+idx] as char,
+						chr
+					)
+				);
+			}
+		}
 
 		let byte = |idx: usize| {
 			stream[idx]
@@ -106,7 +117,7 @@ impl From<&[u8]> for MusicHeader {
 			stream[idx] as u16 + 256*(stream[idx+1] as u16)
 		};
 
-		Self {
+		Ok(Self {
 			music_begin: word(0),
 			music_adr: word(2),
 			init_music: word(4),
@@ -125,7 +136,7 @@ impl From<&[u8]> for MusicHeader {
 			need_system: byte(24),
 			eof_length: word(33),
 
-		}
+		})
 	}
 }
 
@@ -139,12 +150,12 @@ pub struct Music {
 impl Music {
 
 
-	pub fn header(&self) -> MusicHeader {
-		MusicHeader::from(&self.data[..MusicHeader::len()])
+	pub fn header(&self) -> Result<MusicHeader, String> {
+		MusicHeader::try_from(&self.data[..MusicHeader::len()])
 	}
 
-	pub fn info(&self) -> String {
-		let header = self.header();
+	pub fn info(&self) -> Result<String, String> {
+		let header = self.header()?;
 		let start = &self.data[header.relative_music_info()..];
 
 		let mut info = String::new();
@@ -164,7 +175,7 @@ impl Music {
 			}
 		}
 
-		info
+		Ok(info)
 	}
 
 	pub fn content(&self) -> &[u8] {

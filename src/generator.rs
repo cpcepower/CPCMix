@@ -8,9 +8,10 @@ impl Music {
 
 	/// Code for the music.
 	/// Currently the code targets a snapshot. We'll have to pack in a single executable later
+	/// TODO manage errors properly
 	pub fn code(&self) -> String {
 		let mut code = String::new();
-		let header = self.header();
+		let header = self.header().unwrap();
 
 
 		code += "

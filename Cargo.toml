@@ -1,6 +1,6 @@
 [package]
-name = "CPCMix"
-version = "0.1.0"
+name = "cpcmix"
+version = "0.1.1"
 authors = ["rgiot <giot.romain@gmail.com>"]
 edition = "2018"
 
