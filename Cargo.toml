@@ -1,0 +1,16 @@
+[package]
+name = "CPCMix"
+version = "0.1.0"
+authors = ["rgiot <giot.romain@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+staticfilemap = "0.1.2"
+rand = "0.7.3"
+cpclib-xfer = "0.4.1-alpha"
+cpclib-asm = "0.4.1-alpha"
+
+[build-dependencies]
+itertools = "0.9"
