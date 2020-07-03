@@ -28,7 +28,11 @@ fn main() {
     let music = match cmd.as_ref() {
         "random" => mix.random(&mut rng),
         "list" => {
-            println!("{:?}", mix.keys().collect::<Vec<_>>());
+            println!(
+                "{} musics.\n{:?}", 
+                mix.keys().collect::<Vec<_>>().len(),
+                mix.keys().collect::<Vec<_>>()
+            );
             return;
             unreachable!()
         }
