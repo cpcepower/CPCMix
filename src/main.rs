@@ -1,15 +1,41 @@
 mod db;
+mod generator;
 
 use rand::seq::IteratorRandom;
+use cpclib::sna::*;
+use cpclib::xfer::*;
+
+use std::env;
 
 
+/// Dummy player
+/// M4 must have a directory /tmp
+/// cpcmix <cpcip> <command>
+/// with <command> having such values:
+/// - random: play a random music
+/// - list: list all musics keys
+/// - <key> plays the music with key <key>
 fn main() {
+    let args: Vec<String> = env::args().collect();
+    assert_eq!(args.len(), 3, "{} <m4ip> <music>", args[0]);
+    let cpcip = &args[1];
+    let cmd = &args[2];
+
     let mut rng = rand::thread_rng();
     let mix = db::CpcMix::new();
     
-    for key in mix.keys() {
-        println!("{}", key);
-    }
+    //let music =  mix.random(&mut rng);
+    let music = match cmd.as_ref() {
+        "random" => mix.random(&mut rng),
+        "list" => {
+            println!("{:?}", mix.keys().collect::<Vec<_>>());
+            return;
+            unreachable!()
+        }
+        any => mix.music(any).unwrap()
+    };
 
-    println!("{:?}", mix.random(&mut rng));
+    let sna = music.sna();
+    let xfer = CpcXfer::new(cpcip);
+    xfer.upload_and_run_sna(&sna).unwrap();
 }

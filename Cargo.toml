@@ -9,8 +9,8 @@ edition = "2018"
 [dependencies]
 staticfilemap = "0.1.2"
 rand = "0.7.3"
-cpclib-xfer = "0.4.1-alpha"
-cpclib-asm = "0.4.1-alpha"
+cpclib = {version="0.4.2-alpha", features=["xferlib"]}
+itertools = "0.9"
 
 [build-dependencies]
 itertools = "0.9"

@@ -4,6 +4,9 @@ use std::path::Path;
 use std::io::{Write, BufWriter};
 use itertools::Itertools;
 
+
+const ADD_ALL:bool = true;
+
 /// Generate the source code that contains the list of musics
 fn main() {
     let out_dir = env::var_os("OUT_DIR").unwrap();
@@ -34,12 +37,12 @@ fn main() {
 			);
 
 			i+=1;
-			if i >= MAX {
-	//			break;
+			if i >= MAX && !ADD_ALL{
+				break;
 			}
 		}
-		if i >= MAX {
-//			break;
+		if i >= MAX && !ADD_ALL{
+			break;
 		}
 	}
 
