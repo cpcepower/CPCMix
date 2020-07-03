@@ -75,8 +75,20 @@ with <command> having such values:
         Some(music) => music,
         None => {
             eprintln!("Unable to find '{}'.", cmd);
-            eprintln!("TODO - search a music of the given author");
-            return;
+            
+
+            if let Some(music) = mix.keys()
+                .map(|k| mix.music(k).unwrap())
+                .filter(|m| {
+                    m.author().unwrap_or("??".to_owned()).to_lowercase() == args[2]
+                })
+                .choose(&mut rng)
+                {
+                    music
+                }
+                else {
+                    return;
+                }
         }
     };
 
