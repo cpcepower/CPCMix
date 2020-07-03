@@ -4,6 +4,7 @@ use rand::seq::IteratorRandom;
 use cpclib::sna::*;
 use cpclib::xfer::*;
 use std::env;
+use std::thread;
 
 use cpcmix;
 
@@ -16,6 +17,7 @@ use cpcmix;
 /// - list: list all musics keys
 /// - <key> plays the music with key <key>
 fn main() {
+    thread::spawn(|| {
     let args: Vec<String> = env::args().collect();
     assert_eq!(args.len(), 3, "{} <m4ip> <music>", args[0]);
     let cpcip = &args[1];
@@ -42,4 +44,5 @@ fn main() {
     let sna = music.sna();
     let xfer = CpcXfer::new(cpcip);
     xfer.upload_and_run_sna(&sna).unwrap();
+}).join().unwrap();
 }

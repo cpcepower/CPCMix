@@ -32,7 +32,7 @@ fn main() {
 			files_data.push(
 				(
 					file.file_name().to_str().unwrap().split('.').next().unwrap().to_owned(),
-					file.path().to_str().unwrap().to_owned()
+					file.path().to_str().unwrap().replace('\\',"\\\\")
 				)
 			);
 
