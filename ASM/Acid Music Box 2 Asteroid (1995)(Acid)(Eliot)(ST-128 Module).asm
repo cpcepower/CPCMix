@@ -1,15 +1,15 @@
 ; Music of Acid Music Box 2 Asteroid (1995)(Acid)(Eliot)(ST-128 Module)
 ; Ripped by Megachur the 01/10/2014
-; $VER 1.4
+; $VER 1.5
 
-	IFDEF FILENAME_WRITE
+IFDEF FILENAME_WRITE
 	write "ACIMB2AS.BIN"
-	ENDIF
+ENDIF
 
-music_date_rip_day		equ 01
-music_date_rip_month	equ 10
-music_date_rip_year		equ 2014
-music_adr				equ &4000
+MUSIC_DATE_RIP_DAY		equ 01
+MUSIC_DATE_RIP_MONTH	equ 10
+MUSIC_DATE_RIP_YEAR		equ 2014
+music_adr				equ #4000
 
 	read "music_header.asm"
 
