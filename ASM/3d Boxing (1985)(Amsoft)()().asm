@@ -1,15 +1,15 @@
 ; Music of 3d Boxing (1985)(Amsoft)()()
 ; Ripped by Megachur the 16/02/2015
-; $VER 1.4
+; $VER 1.5
 
-	IFDEF FILENAME_WRITE
+IFDEF FILENAME_WRITE
 	write "3DBOXING.BIN"
-	ENDIF
+ENDIF
 
-music_date_rip_day		equ 16
-music_date_rip_month	equ 02
-music_date_rip_year		equ 2015
-music_adr				equ &81aa
+MUSIC_DATE_RIP_DAY		equ 16
+MUSIC_DATE_RIP_MONTH	equ 02
+MUSIC_DATE_RIP_YEAR		equ 2015
+music_adr				equ #81aa
 
 	read "music_header.asm"
 

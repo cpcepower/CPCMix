@@ -1,17 +1,17 @@
 ; Music of 11 A Side Soccer (1989) (Codemasters)(David Whittaker)(Four Soccer Simulator)()
 ; Ripped by Megachur the 24/01/2009
-; $VER 1.4
+; $VER 1.5
 
-	IFDEF FILENAME_WRITE
+IFDEF FILENAME_WRITE
 	write "11ASIDES.BIN"
-	ENDIF
+ENDIF
 
-music_date_rip_day		equ 24
-music_date_rip_month	equ 01
-music_date_rip_year		equ 2009
-music_adr				equ &907a
-first_theme				equ 0
-last_theme				equ 1
+MUSIC_DATE_RIP_DAY		equ 24
+MUSIC_DATE_RIP_MONTH	equ 01
+MUSIC_DATE_RIP_YEAR		equ 2009
+music_adr				equ #907a
+FIRST_THEME				equ 0
+LAST_THEME				equ 1
 
 	read "music_header.asm"
 
@@ -767,4 +767,3 @@ last_theme				equ 1
 	db "Four Soccer Simulator",0
 
 	read "music_end.asm"
-
