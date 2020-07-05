@@ -74,7 +74,10 @@ loop
 		let code = self.code();
 		let listing = Listing::from_str(&code).unwrap();
 		let env = visit_tokens_all_passes(&listing).unwrap();
-		env.sna().clone()
+		
+		let mut sna = env.sna().clone();
+		sna.set_value(SnapshotFlag::GA_PAL(Some(16)), 0x54).unwrap();
+		sna
 	}
 
 }
