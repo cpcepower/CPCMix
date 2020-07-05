@@ -1,15 +1,15 @@
 ; Music of Average Tune (2006)(Phantasy)(Factor 6)(StArkos)
 ; Ripped by Megachur the 27/12/2014
-; $VER 1.4
+; $VER 1.5
 
-	IFDEF FILENAME_WRITE
+IFDEF FILENAME_WRITE
 	write "AVERAGET.BIN"
-	ENDIF
+ENDIF
 
-music_date_rip_day		equ 27
-music_date_rip_month	equ 12
-music_date_rip_year		equ 2014
-music_adr				equ &9000
+MUSIC_DATE_RIP_DAY		equ 27
+MUSIC_DATE_RIP_MONTH	equ 12
+MUSIC_DATE_RIP_YEAR		equ 2014
+music_adr				equ #9000
 
 	read "music_header.asm"
 

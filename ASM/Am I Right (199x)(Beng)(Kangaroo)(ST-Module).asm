@@ -1,15 +1,15 @@
 ; Music of Am I Right (199x)(Beng)(Kangaroo)(ST-Module)
 ; Ripped by Megachur the 19/02/2016
-; $VER 1.4
+; $VER 1.5
 
-	IFDEF FILENAME_WRITE
+IFDEF FILENAME_WRITE
 	write "AMIRIGHT.BIN"
-	ENDIF
+ENDIF
 
-music_date_rip_day		equ 19
-music_date_rip_month	equ 02
-music_date_rip_year		equ 2016
-music_adr				equ &4000
+MUSIC_DATE_RIP_DAY		equ 19
+MUSIC_DATE_RIP_MONTH	equ 02
+MUSIC_DATE_RIP_YEAR		equ 2016
+music_adr				equ #4000
 
 	read "music_header.asm"
 
@@ -30,9 +30,11 @@ music_adr				equ &4000
 	call l40b7
 	pop ix
 	ret
+
 	jp l402f
 	jp l40b7
 	jp l409b
+
 	ld h,(hl)
 	inc b
 ;

@@ -1,15 +1,15 @@
 ; Music of ASM Intro 1 (2008)(Flower Corp)(Shap)(ST-128 Module)
 ; Ripped by Megachur the 24/11/2014
-; $VER 1.4
+; $VER 1.5
 
-	IFDEF FILENAME_WRITE
+IFDEF FILENAME_WRITE
 	write "ASMINTR1.BIN"
-	ENDIF
+ENDIF
 
-music_date_rip_day		equ 24
-music_date_rip_month	equ 11
-music_date_rip_year		equ 2014
-music_adr				equ &4000
+MUSIC_DATE_RIP_DAY		equ 24
+MUSIC_DATE_RIP_MONTH	equ 11
+MUSIC_DATE_RIP_YEAR		equ 2014
+music_adr				equ #4000
 
 	read "music_header.asm"
 
