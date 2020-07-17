@@ -1,15 +1,15 @@
 ; Music of Ze Meeting 2003 Plissken (2004)(Arkos)()(ST-128 Module)
 ; Ripped by Megachur the 05/10/2014
-; $VER 1.4
+; $VER 1.5
 
-	IFDEF FILENAME_WRITE
+IFDEF FILENAME_WRITE
 	write "ZEMEET2P.BIN"
-	ENDIF
+ENDIF
 
-music_date_rip_day		equ 05
-music_date_rip_month	equ 10
-music_date_rip_year		equ 2014
-music_adr				equ &7000
+MUSIC_DATE_RIP_DAY		equ 05
+MUSIC_DATE_RIP_MONTH	equ 10
+MUSIC_DATE_RIP_YEAR		equ 2014
+music_adr				equ #7000
 
 	read "music_header.asm"
 

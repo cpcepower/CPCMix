@@ -1,15 +1,15 @@
 ; Music of Ze Meeting 3 (1997)(DBT Production)()(ST-128 Module)
 ; Ripped by Megachur the 02/09/2017
-; $VER 1.4
+; $VER 1.5
 
-	IFDEF FILENAME_WRITE
+IFDEF FILENAME_WRITE
 	write "ZEMEETI3.BIN"
-	ENDIF
+ENDIF
 
-music_date_rip_day		equ 02
-music_date_rip_month	equ 09
-music_date_rip_year		equ 2017
-music_adr				equ &4500
+MUSIC_DATE_RIP_DAY		equ 02
+MUSIC_DATE_RIP_MONTH	equ 09
+MUSIC_DATE_RIP_YEAR		equ 2017
+music_adr				equ #4500
 
 	read "music_header.asm"
 
