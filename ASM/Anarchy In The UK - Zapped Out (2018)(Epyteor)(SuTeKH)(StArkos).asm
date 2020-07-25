@@ -13,11 +13,11 @@ music_adr				equ #8000
 
 	read "music_header.asm"
 
-	db #06,#1a,#0e,#e7,#00,#ff,#ff,#00
 	db #00,#00,#00,#00,#00,#00,#00,#00
-	jp l8684
-	jp l801a
-	jp l86d9
+	db #00,#00,#00,#00,#00,#00,#00,#00
+	jp l8684	; init
+	jp l801a	; play
+	jp l86d9	; stop
 .l8019
 	nop
 ;
@@ -27,15 +27,15 @@ music_adr				equ #8000
 	xor a
 	ld (l8019),a
 .l801f equ $ + 1
-	ld a,#06
+	ld a,#01
 	dec a
 	jp nz,l81eb
 .l8025 equ $ + 1
-	ld a,#28
+	ld a,#01
 	dec a
 	jr nz,l8091
 .l802a equ $ + 1
-	ld hl,l8731
+	ld hl,#0000
 	ld a,(hl)
 	inc hl
 	rra
@@ -87,7 +87,7 @@ music_adr				equ #8000
 .l8078
 	ld (l802a),hl
 .l807c equ $ + 1
-	ld hl,l873b
+	ld hl,#0000
 	ld (l809a),hl
 	ld a,#01
 	ld (l8095),a
@@ -95,15 +95,15 @@ music_adr				equ #8000
 	ld (l8120),a
 	ld (l8185),a
 .l8090 equ $ + 1
-	ld a,#40
+	ld a,#01
 .l8091
 	ld (l8025),a
 .l8095 equ $ + 1
-	ld a,#e8
+	ld a,#01
 	dec a
 	jr nz,l80b7
 .l809a equ $ + 1
-	ld hl,l873c
+	ld hl,#0000
 	ld a,(hl)
 	inc hl
 	srl a
@@ -129,7 +129,7 @@ music_adr				equ #8000
 	dec a
 	jr nz,l811c
 .l80c0 equ $ + 1
-	ld hl,l8759
+	ld hl,#0000
 	call l8530
 	ld (l80c0),hl
 	jr c,l811c
@@ -154,7 +154,7 @@ music_adr				equ #8000
 	rl d
 	jr c,l80fa
 .l80f0 equ $ + 1
-	ld hl,l871b
+	ld hl,#0000
 	ld a,(l827d)
 	ld (l8275),a
 	jr l8117
@@ -162,7 +162,7 @@ music_adr				equ #8000
 	ld l,b
 	add hl,hl
 .l80fd equ $ + 1
-	ld bc,l870c
+	ld bc,#0000
 	add hl,bc
 	ld a,(hl)
 	inc hl
@@ -190,7 +190,7 @@ music_adr				equ #8000
 	dec a
 	jr nz,l8181
 .l8125 equ $ + 1
-	ld hl,l879d
+	ld hl,#0000
 	call l8530
 	ld (l8125),hl
 	jr c,l8181
@@ -215,7 +215,7 @@ music_adr				equ #8000
 	rl d
 	jr c,l815f
 .l8155 equ $ + 1
-	ld hl,l871b
+	ld hl,#0000
 	ld a,(l8249)
 	ld (l8241),a
 	jr l817c
@@ -223,7 +223,7 @@ music_adr				equ #8000
 	ld l,b
 	add hl,hl
 .l8162 equ $ + 1
-	ld bc,l870c
+	ld bc,#0000
 	add hl,bc
 	ld a,(hl)
 	inc hl
@@ -251,7 +251,7 @@ music_adr				equ #8000
 	dec a
 	jr nz,l81e6
 .l818a equ $ + 1
-	ld hl,l87e1
+	ld hl,#0000
 	call l8530
 	ld (l818a),hl
 	jr c,l81e6
@@ -276,7 +276,7 @@ music_adr				equ #8000
 	rl d
 	jr c,l81c4
 .l81ba equ $ + 1
-	ld hl,l871b
+	ld hl,#0000
 	ld a,(l8218)
 	ld (l8210),a
 	jr l81e1
@@ -284,7 +284,7 @@ music_adr				equ #8000
 	ld l,b
 	add hl,hl
 .l81c7 equ $ + 1
-	ld bc,l870c
+	ld bc,#0000
 	add hl,bc
 	ld a,(hl)
 	inc hl
@@ -308,7 +308,7 @@ music_adr				equ #8000
 .l81e6
 	ld (l8185),a
 .l81ea equ $ + 1
-	ld a,#06
+	ld a,#01
 .l81eb
 	ld (l801f),a
 	ld iy,l8372
@@ -326,9 +326,9 @@ music_adr				equ #8000
 	exx
 .l8208 equ $ + 2
 .l8207 equ $ + 1
-	ld de,#0941
+	ld de,#0000
 .l820a equ $ + 1
-	ld hl,l871c
+	ld hl,#0000
 	call l837d
 .l8210 equ $ + 1
 	ld a,#01
@@ -336,7 +336,7 @@ music_adr				equ #8000
 	jr nz,l8219
 	ld (l820a),hl
 .l8218 equ $ + 1
-	ld a,#01
+	ld a,#06
 .l8219
 	ld (l8210),a
 	ld a,lx
@@ -356,9 +356,9 @@ music_adr				equ #8000
 	exx
 .l8239 equ $ + 2
 .l8238 equ $ + 1
-	ld de,#064a
+	ld de,#0000
 .l823b equ $ + 1
-	ld hl,l871c
+	ld hl,#0000
 	call l837d
 .l8241 equ $ + 1
 	ld a,#01
@@ -366,7 +366,7 @@ music_adr				equ #8000
 	jr nz,l824a
 	ld (l823b),hl
 .l8249 equ $ + 1
-	ld a,#01
+	ld a,#06
 .l824a
 	ld (l8241),a
 	ex af,af'
@@ -389,9 +389,9 @@ music_adr				equ #8000
 	exx
 .l826d equ $ + 2
 .l826c equ $ + 1
-	ld de,#0354
+	ld de,#0000
 .l826f equ $ + 1
-	ld hl,l871c
+	ld hl,#0000
 	call l837d
 .l8275 equ $ + 1
 	ld a,#01
@@ -559,12 +559,13 @@ music_adr				equ #8000
 	out (c),d
 	ret
 .l836e
-	ld e,#00
+	nop
+	nop
 .l8370
-	dec (hl)
+	nop
 	nop
 .l8372
-	ld e,c
+	nop
 	nop
 .l8374
 	nop
@@ -573,11 +574,12 @@ music_adr				equ #8000
 	nop
 	nop
 	nop
-.l837a equ $ + 1
-	ld b,#00
+	nop
+.l837a
+	nop
 	nop
 .l837c
-	rst #38
+	nop
 .l837d
 	ld b,(hl)
 	inc hl
@@ -994,29 +996,21 @@ music_adr				equ #8000
 	djnz l86df
 	ld a,#3f
 	jp l8284
-
 	db #00,#00,#00,#00,#00,#00,#00,#00
 	db #00,#00,#00,#00,#00,#00,#00,#00
 	db #00,#00,#00,#00,#00,#00,#00,#00
 	db #0e,#0f,#17,#00,#10,#0c,#01,#19
-.l870c equ $ + 4
 	db #09,#0e,#07,#26,#00,#00,#00,#00
-	db #01,#0d,#09,#07,#01,#00,#0d,#05
-.l871c equ $ + 4
-.l871b equ $ + 3
-	db #0d,#0f,#12,#09,#05,#13,#00,#00
-	db #00,#00,#28,#1b,#1c,#26,#20,#1f
+	db #01,#0e,#01,#12,#03,#08,#19,#00
+	db #0d,#05,#0e,#15,#00,#1c,#00,#00
+	db #00,#00,#28,#1b,#1d,#26,#1d,#23
 	db #29,#00,#00,#00,#00,#00,#ff,#00
 .l8730
-.l8731 equ $ + 1
 	db #41,#54,#31,#30,#01,#40,#42,#0f
-.l873c equ $ + 4
-.l873b equ $ + 3
 	db #02,#06,#85,#02,#70,#87,#79,#87
 	db #95,#87,#1a,#88,#32,#88,#4a,#88
 	db #67,#88,#7b,#88,#98,#88,#bb,#88
 	db #d8,#88,#f1,#88,#0a,#89,#1e,#89
-.l8759 equ $ + 1
 	db #3b,#89,#44,#89,#4d,#89,#56,#89
 	db #5f,#89,#70,#89,#7c,#89,#87,#89
 	db #9e,#89,#a4,#89,#ad,#89,#b7,#89
@@ -1025,7 +1019,6 @@ music_adr				equ #8000
 	db #24,#24,#20,#20,#1c,#1c,#18,#18
 	db #14,#14,#10,#10,#0c,#0c,#08,#08
 	db #04,#04,#0d,#72,#87,#06,#00,#3e
-.l879d equ $ + 5
 	db #03,#3e,#03,#3e,#03,#3e,#03,#3e
 	db #04,#3e,#05,#3e,#06,#3e,#07,#3e
 	db #08,#3e,#09,#3e,#0a,#3e,#0b,#3e
@@ -1035,7 +1028,6 @@ music_adr				equ #8000
 	db #18,#3e,#19,#3e,#1a,#3e,#1b,#3e
 	db #1c,#3e,#1d,#3e,#1e,#3e,#1f,#3e
 	db #1e,#3e,#1e,#3e,#1d,#3e,#1d,#3e
-.l87e1 equ $ + 1
 	db #1c,#3e,#1c,#3e,#1b,#3e,#1b,#3e
 	db #1a,#3e,#1a,#3e,#19,#3e,#19,#3e
 	db #18,#3e,#18,#3e,#17,#3e,#17,#3e

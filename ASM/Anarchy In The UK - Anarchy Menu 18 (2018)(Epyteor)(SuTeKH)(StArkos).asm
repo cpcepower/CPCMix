@@ -1,9 +1,9 @@
-; Music of Anarchy In The UK - Amiga Memories (2018)(Epyteor)(SuTeKH)(StArkos)
+; Music of Anarchy In The UK - Anarchy Menu 18 (2018)(Epyteor)(SuTeKH)(StArkos)
 ; Ripped by Megachur the 25/05/2019
 ; $VER 1.5
 
 IFDEF FILENAME_WRITE
-	write "ANAITUAM.BIN"
+	write "ANITAM18.BIN"
 ENDIF
 
 MUSIC_DATE_RIP_DAY		equ 25
@@ -1569,7 +1569,8 @@ music_adr				equ #8000
 	jp real_init_music
 ;
 .music_info
-	db "Anarchy In The UK - Amiga Memories (2018)(Epyteor)(SuTeKH)",0
+	db "Anarchy In The UK - Anarchy Menu 18 (2018)(Epyteor)(SuTeKH)",0
 	db "StArkos",0
 
 	read "music_end.asm"
+
