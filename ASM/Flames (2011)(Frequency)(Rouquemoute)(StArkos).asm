@@ -1,19 +1,19 @@
 ; Music of Flames (2011)(Frequency)(Rouquemoute)(StArkos)
 ; Ripped by Megachur the 27/12/2014
-; $VER 1.4
+; $VER 1.5
 
-	IFDEF FILENAME_WRITE
+IFDEF FILENAME_WRITE
 	write "FLAMES.BIN"
-	ENDIF
+ENDIF
 
-music_date_rip_day		equ 27
-music_date_rip_month	equ 12
-music_date_rip_year		equ 2014
-music_adr				equ &6000
+MUSIC_DATE_RIP_DAY		equ 27
+MUSIC_DATE_RIP_MONTH	equ 12
+MUSIC_DATE_RIP_YEAR		equ 2014
+music_adr				equ #6000
 
 	read "music_header.asm"
 
-.music_data
+.l6000
 	db #53,#4b,#31,#30,#00,#60,#03,#32
 	db #00,#1e,#60,#20,#60,#92,#60,#95
 	db #60,#1a,#60,#1e,#60,#20,#60,#92
@@ -526,6 +526,7 @@ music_adr				equ &6000
 	db #00,#00,#00,#00,#00,#00,#00,#00
 	db #00,#00,#00,#00,#00,#00,#00,#00
 	db #00,#00,#00,#00,#00,#00,#00,#00
+
 	jp l7870
 	jp l700d
 	jp l7854
@@ -1907,12 +1908,11 @@ music_adr				equ &6000
 	dw l77e5,l770e,l775f,l77b0
 	dw l7800,l781b,l7836,l72d9
 	dw l732a,l737b,#b703,l72ea
-	dw l733b,l738c
+	dw l733b,l738c,#0000
 ;
-.init_music		; added by Megachur
+.init_music		; #800a - added by Megachur
 ;
-	; org #800a
-	ld de,music_data	; #6000
+	ld de,l6000
 	jp real_init_music
 ;
 .music_info

@@ -121,11 +121,11 @@ LAST_THEME				equ 1
 ; #5c16 - player reallocated by Megachur
 ;
 .l5c17 equ $ + 1
+.l5c16
+	db #00,#00
 ;
 .play_music
-.l5c16
 ;
-	db #00,#00
 	push ix
 	push iy
 	xor a

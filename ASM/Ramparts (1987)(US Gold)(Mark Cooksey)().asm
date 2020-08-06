@@ -346,7 +346,7 @@ LAST_THEME				equ 3
 	ld a,(hl)
 	and a
 	jr nz,l7556
-	inc hl		; reinit music!
+	inc hl
 	ld a,(hl)
 	and a
 	jr z,l756b
