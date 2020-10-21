@@ -11,7 +11,7 @@ MUSIC_DATE_RIP_MONTH	equ 01
 MUSIC_DATE_RIP_YEAR		equ 2007
 music_adr				equ #90d0
 FIRST_THEME				equ 0
-LAST_THEME				equ 2
+LAST_THEME				equ 12
 
 	read "music_header.asm"
 

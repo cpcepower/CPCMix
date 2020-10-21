@@ -15,7 +15,7 @@ LAST_THEME				equ 2
 
 	read "music_header.asm"
 
-	jp l4246	;play/init
+	jp l4246	; play / init
 
 	dw #0eee,#0e18,#0d4d,#0c8e
 	dw #0bda,#0b2f,#0a8f,#09f7
@@ -1463,9 +1463,9 @@ LAST_THEME				equ 2
 	db #14,#7f,#f7,#0a,#ff,#7f,#1e,#3c
 	db #0c,#01,#03,#32,#03,#1e,#18,#03
 .lbffd
-	db &00
+	db #00
 .lbffe
-	db &00
+	db #00
 ;
 .music_info
 	db "Striker In The Crypts Of Trogan (1992)(Codemasters)(Andy Wynd)",0
