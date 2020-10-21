@@ -1526,19 +1526,16 @@ music_adr				equ #4000
 	db #34,#a6,#0a,#fa,#ee,#f4,#ee,#dc
 	db #ca,#f4,#42,#f4,#12,#c0,#ee,#06
 	db #f7,#7e,#00,#00
-
-; org #2000
+;
+; #2000
 ; ld bc,#7fc6
 ; out (c),c
 ; call #4000
-
-
-; org #2242
+;
+; #2242
 ; ld bc,#7fc6
 ; out (c),c
 ; call #4003
-
-
 ;
 .music_info
 	db "Plissken 2 (2002)(Public Domain)()",0
