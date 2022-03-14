@@ -1,0 +1,907 @@
+; Music of Red Sunset - 1 (2020)(ESP Soft)(John McKlain)(StArkos)
+; Ripped by Megachur the 24/03/2021
+; $VER 1.5
+
+IFDEF FILENAME_WRITE
+	write "REDSUNS1.BIN"
+ENDIF
+
+MUSIC_DATE_RIP_DAY		equ 24
+MUSIC_DATE_RIP_MONTH	equ 03
+MUSIC_DATE_RIP_YEAR		equ 2021
+music_adr				equ #0720
+
+	read "music_header.asm"
+
+	jp l0813
+	jp l089d
+	jp l0887
+	ld (l072f),hl
+	ret
+	dec a
+.l072f equ $ + 1
+	ld hl,#0000
+	ld e,a
+	ld d,#00
+	add hl,de
+	add hl,de
+	ld e,(hl)
+	inc hl
+	ld d,(hl)
+	ld a,(de)
+	inc de
+	ex af,af'
+	ld a,b
+	ld hl,l07fb
+	ld b,#00
+	sla c
+	sla c
+	sla c
+	add hl,bc
+	ld (hl),e
+	inc hl
+	ld (hl),d
+	inc hl
+	ld (hl),a
+	inc hl
+	ld (hl),#00
+	inc hl
+	ex af,af'
+	ld (hl),a
+	ret
+	add a
+	add a
+	add a
+	ld e,a
+	ld d,#00
+	ld hl,l07fb
+	add hl,de
+	ld (hl),d
+	inc hl
+	ld (hl),d
+	ret
+.l0763
+	rla
+	rla
+	ld ix,l07fb
+	ld iy,l0c2c
+	ld c,a
+	call l0790
+	ld ix,l0803
+	ld iy,l0c38
+	srl c
+	call l0790
+	ld ix,l080b
+	ld iy,l0c44
+	rr c
+	call l0790
+	ld a,c
+	ld (l0c55),a
+	ret
+.l0790
+	ld l,(ix+#00)
+	ld h,(ix+#01)
+	ld a,l
+	or h
+	ret z
+	ld a,(hl)
+	inc hl
+	ld b,a
+	rra
+	jr c,l07cc
+	rra
+	rra
+	jr c,l07ad
+	call l07ef
+	rl b
+	call c,l07dc
+	jr l07b5
+.l07ad
+	xor a
+	ld (ix+#00),a
+	ld (ix+#01),a
+	ret
+.l07b5
+	ld a,(ix+#03)
+	cp (ix+#04)
+	jr c,l07c8
+	ld (ix+#03),#00
+	ld (ix+#00),l
+	ld (ix+#01),h
+	ret
+.l07c8
+	inc (ix+#03)
+	ret
+.l07cc
+	rra
+	call l07ef
+	rl b
+	call c,l07dc
+	res 2,c
+	call l07e4
+	jr l07b5
+.l07dc
+	ld a,(hl)
+	ld (l0c51),a
+	inc hl
+	res 5,c
+	ret
+.l07e4
+	ld a,(hl)
+	ld (iy+#05),a
+	inc hl
+	ld a,(hl)
+	ld (iy+#09),a
+	inc hl
+	ret
+.l07ef
+	and #0f
+	sub (ix+#02)
+	jr nc,l07f7
+	xor a
+.l07f7
+	ld (iy+#01),a
+	ret
+.l07fb
+	db #00,#00,#00,#00,#00,#00,#00,#00
+.l0803
+	db #00,#00,#00,#00,#00,#00,#00,#00
+.l080b
+	db #00,#00,#00,#00,#00,#00,#00,#00
+;
+.real_init_music
+.l0813
+;
+	ld de,l0923
+	ldi
+	ldi
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	add a
+	ld e,a
+	ld d,#00
+	add hl,de
+	ld a,(hl)
+	inc hl
+	ld h,(hl)
+	ld l,a
+	ld ix,l086d
+	ld a,#0d
+.l082d
+	ld e,(ix+#00)
+	ld d,(ix+#01)
+	inc ix
+	inc ix
+	ldi
+	dec a
+	jr nz,l082d
+	ld (l08aa),a
+	ex de,hl
+	ld hl,l08b9
+	ld (hl),e
+	inc hl
+	ld (hl),d
+	ld hl,l0bed
+	ld de,l0bee
+	ld bc,#0014
+	ld (hl),a
+	ldir
+	ld a,(l08a5)
+	dec a
+	ld (l08a2),a
+	ld hl,(l0923)
+	ld e,(hl)
+	inc hl
+	ld d,(hl)
+	inc de
+	ld (l0bf7),de
+	ld (l0c0c),de
+	ld (l0c21),de
+	ret
+.l086d
+	dw #0926,#0927,#08b5,#08b6
+	dw #08a5,#0a52,#0a4e,#0a90
+	dw #0a94,#08c6,#08d1,#08dc
+	dw #09fe
+;
+.stop_music
+.l0887
+;
+	ld (l0998),sp
+	xor a
+	ld (l0c2d),a
+	ld (l0c39),a
+	ld (l0c45),a
+	ld a,#3f
+	ld (l0c55),a
+	jp l097a
+;
+.play_music
+.l089d
+;
+	ld (l0998),sp
+.l08a2 equ $ + 1
+	ld a,#00
+	inc a
+.l08a5 equ $ + 1
+	cp #01
+	jp nz,l093f
+.l08aa equ $ + 1
+	ld a,#00
+	sub #01
+	jr c,l08b4
+	ld (l08aa),a
+	jr l0922
+.l08b4
+	ld de,#0000
+	exx
+.l08b9 equ $ + 1
+	ld hl,#0000
+.l08bb
+	xor a
+	ld (l0bed),a
+	ld (l0c02),a
+	ld (l0c17),a
+	ld a,#00
+	ld (l0bf4),a
+	ld (l0c09),a
+	ld (l0c1e),a
+	ld a,#00
+	ld (l0bf5),a
+	ld (l0c0a),a
+	ld (l0c1f),a
+	ld a,#00
+	ld (l0bf6),a
+	ld (l0c0b),a
+	ld (l0c20),a
+	ld b,(hl)
+	inc hl
+	rr b
+	jr nc,l08fa
+	ld a,(hl)
+	inc hl
+	or a
+	jr nz,l08f7
+	ld a,(hl)
+	inc hl
+	ld h,(hl)
+	ld l,a
+	jr l08bb
+.l08f7
+	ld (l08a5),a
+.l08fa
+	rr b
+	jr nc,l0905
+	ld a,(hl)
+	inc hl
+	ld (l0906),a
+	jr l0907
+.l0906 equ $ + 1
+.l0905
+	ld a,#00
+.l0907
+	ld (l08aa),a
+	ld ix,l0bed
+	call l099b
+	ld ix,l0c02
+	call l099b
+	ld ix,l0c17
+	call l099b
+	ld (l08b9),hl
+.l0923 equ $ + 1
+.l0922
+	ld de,#0000
+	ld bc,#0000
+	exx
+	ld ix,l0bed
+	call l09e7
+	ld ix,l0c02
+	call l09e7
+	ld ix,l0c17
+	call l09e7
+	xor a
+.l093f
+	ld (l08a2),a
+	ld de,l0c58
+	exx
+	ld c,#e0
+	ld ix,l0bed
+	call l0adb
+	ld iy,l0c2c
+	call l0b0a
+	srl c
+	ld ix,l0c02
+	call l0adb
+	ld iy,l0c38
+	call l0b0a
+	rr c
+	ld ix,l0c17
+	call l0adb
+	ld iy,l0c44
+	call l0b0a
+	ld a,c
+	call l0763
+.l097a
+	ld sp,l0c2c
+	ld bc,#f680
+	ld a,#c0
+	ld de,#f4f6
+	out (c),a
+	pop hl
+	jp l56d8		; #56d8 modified by megachur
+.l098b
+	ld b,e
+	db #ed,#71 ; out (c),0
+	ld b,d
+	out (c),h
+	ld b,e
+	out (c),c
+	out (c),a
+	ret
+.l0998 equ $ + 1
+	ld sp,#bff6
+	ret
+.l099b
+	rr b
+	jr nc,l09a4
+	ld a,(hl)
+	ld (ix+#01),a
+	inc hl
+.l09a4
+	rr b
+	jr nc,l09da
+	ld a,(hl)
+	inc hl
+	sla a
+	jr nc,l09c4
+	exx
+	ld l,a
+	ld h,#00
+	add hl,de
+	ld a,(hl)
+	ld (ix+#02),a
+	ld (ix+#04),a
+	inc hl
+	ld a,(hl)
+	ld (ix+#03),a
+	ld (ix+#05),a
+	exx
+	ret
+.l09c4
+	rra
+	ld d,a
+	ld e,(hl)
+	inc hl
+	ld c,l
+	ld a,h
+	add hl,de
+	ld (ix+#02),l
+	ld (ix+#03),h
+	ld (ix+#04),l
+	ld (ix+#05),h
+	ld l,c
+	ld h,a
+	ret
+.l09da
+	ld a,(ix+#02)
+	ld (ix+#04),a
+	ld a,(ix+#03)
+	ld (ix+#05),a
+	ret
+.l09e7
+	ld a,(ix+#00)
+	sub #01
+	jr c,l09f2
+	ld (ix+#00),a
+	ret
+.l09f2
+	ld l,(ix+#04)
+	ld h,(ix+#05)
+.l09f8
+	ld b,(hl)
+	inc hl
+	ld a,b
+	and #0f
+	cp #0c
+	jr c,l0a27
+	sub #0c
+	jr z,l0a17
+	dec a
+	jr z,l0a1d
+	dec a
+	jr z,l0a10
+	ld a,(ix+#07)
+	jr l0a2e
+.l0a10
+	ld a,(hl)
+	ld (ix+#07),a
+	inc hl
+	jr l0a2e
+.l0a17
+	dec a
+	ld (l0a99),a
+	jr l09f8
+.l0a1d
+	bit 4,b
+	jr z,l0a76
+	ld a,b
+	ld (l0a99),a
+	jr l0a76
+.l0a27
+	exx
+	ld l,a
+	ld h,#00
+	add hl,bc
+	ld a,(hl)
+	exx
+.l0a2e
+	add (ix+#01)
+	ld (ix+#06),a
+	ld a,b
+	and #30
+	jr z,l0a48
+	cp #10
+	jr z,l0a51
+	cp #20
+	jr z,l0a4d
+	ld a,(hl)
+	inc hl
+	ld (ix+#08),a
+	jr l0a53
+.l0a48
+	ld a,(ix+#08)
+	jr l0a53
+.l0a4d
+	ld a,#00
+	jr l0a53
+.l0a51
+	ld a,#00
+.l0a53
+	exx
+	add a
+	ld l,a
+	ld h,#00
+	add hl,de
+	ld a,(hl)
+	inc hl
+	ld h,(hl)
+	ld l,a
+	ld a,(hl)
+	inc hl
+	ld (ix+#0d),a
+	ld (ix+#0a),l
+	ld (ix+#0b),h
+	exx
+	xor a
+	ld (ix+#0c),a
+	ld (ix+#0f),a
+	ld (ix+#10),a
+	ld (ix+#11),a
+.l0a76
+	ld a,b
+	and #c0
+	jr z,l0a8a
+	cp #40
+	jr z,l0a8f
+	cp #80
+	jr z,l0a93
+	ld a,(hl)
+	inc hl
+	ld (ix+#09),a
+	jr l0a95
+.l0a8a
+	ld a,(ix+#09)
+	jr l0a95
+.l0a8f
+	ld a,#00
+	jr l0a95
+.l0a93
+	ld a,#00
+.l0a95
+	ld (ix+#00),a
+.l0a99 equ $ + 1
+	ld a,#00
+	or a
+	jr nz,l0aa4
+.l0a9d
+	ld (ix+#04),l
+	ld (ix+#05),h
+	ret
+.l0aa4
+	xor a
+	ld (l0a99),a
+.l0aa8
+	ld iy,l0bbe
+	ld b,(hl)
+	ld a,b
+	inc hl
+	and #0e
+	ld e,a
+	ld d,#00
+	add iy,de
+	ld a,b
+	rra
+	rra
+	rra
+	rra
+	and #0f
+	jp (iy)
+.l0abf
+	bit 0,b
+	jr nz,l0aa8
+	jr l0a9d
+	ld a,(hl)
+	inc hl
+	ld (ix+#00),a
+	jr l0ad4
+	ld a,b
+	rlca
+	rlca
+	and #03
+	ld (ix+#00),a
+.l0ad4
+	ld (ix+#04),l
+	ld (ix+#05),h
+	ret
+.l0adb
+	ld a,(ix+#0f)
+	or a
+	jr z,l0b09
+	ld l,(ix+#12)
+	ld h,(ix+#10)
+	ld e,(ix+#13)
+	ld d,(ix+#14)
+	ld a,(ix+#11)
+	bit 7,d
+	jr nz,l0af9
+	add hl,de
+	adc #00
+	jr l0b00
+.l0af9
+	res 7,d
+	or a
+	sbc hl,de
+	sbc #00
+.l0b00
+	ld (ix+#11),a
+	ld (ix+#12),l
+	ld (ix+#10),h
+.l0b09
+	ret
+.l0b0a
+	ld l,(ix+#0a)
+	ld h,(ix+#0b)
+.l0b10
+	ld a,(hl)
+	ld b,a
+	inc hl
+	rra
+	jr c,l0b32
+	rra
+	rra
+	jr nc,l0b26
+	ld a,(hl)
+	inc hl
+	ld h,(hl)
+	ld l,a
+	ld (ix+#0a),l
+	ld (ix+#0b),h
+	jr l0b10
+.l0b26
+	set 2,c
+	call l0b6f
+	ld (iy+#01),a
+	rl b
+	jr l0b58
+.l0b32
+	rra
+	call l0b6f
+	ld (iy+#01),a
+	ld d,#00
+	rl b
+	jr nc,l0b47
+	ld a,(hl)
+	inc hl
+	sra a
+	ld d,a
+	call c,l0b77
+.l0b47
+	ld a,d
+	call l0b7f
+	rl b
+	call c,l0bac
+	exx
+	ld (iy+#05),l
+	ld (iy+#09),h
+	exx
+.l0b58
+	ld a,(ix+#0c)
+	cp (ix+#0d)
+	jr nc,l0b64
+	inc (ix+#0c)
+	ret
+.l0b64
+	ld (ix+#0a),l
+	ld (ix+#0b),h
+	ld (ix+#0c),#00
+	ret
+.l0b6f
+	and #0f
+	sub (ix+#0e)
+	ret nc
+	xor a
+	ret
+.l0b77
+	ld a,(hl)
+	inc hl
+	ld (l0c51),a
+	res 5,c
+	ret
+.l0b7f
+	exx
+	ld h,#00
+	add (ix+#06)
+	ld bc,#ff0c
+.l0b88
+	inc b
+	sub c
+	jr nc,l0b88
+	add c
+	add a
+	ld l,a
+	ld h,#00
+	add hl,de
+	ld a,(hl)
+	inc hl
+	ld h,(hl)
+	ld l,a
+	ld a,b
+	or a
+	jr z,l0ba0
+.l0b9a
+	srl h
+	rr l
+	djnz l0b9a
+.l0ba0
+	jr nc,l0ba3
+	inc hl
+.l0ba3
+	ld c,(ix+#10)
+	ld b,(ix+#11)
+	add hl,bc
+	exx
+	ret
+.l0bac
+	ld a,(hl)
+	inc hl
+	exx
+	ld c,a
+	exx
+	ld a,(hl)
+	inc hl
+	exx
+	ld b,a
+	add hl,bc
+	exx
+	ret
+.l0bb8
+	ld (ix+#0e),a
+	jp l0abf
+.l0bbe
+	jr l0bbe
+	jr l0bb8
+	jr l0bcc
+.l0bc4
+	jr l0bc4
+.l0bc6
+	jr l0bc6
+.l0bc8
+	jr l0bc8
+.l0bca
+	jr l0bca
+.l0bcc
+	rra
+	jr nc,l0be0
+	ld (ix+#0f),#ff
+	ld a,(hl)
+	inc hl
+	ld (ix+#13),a
+	ld a,(hl)
+	inc hl
+	ld (ix+#14),a
+	jp l0abf
+.l0be0
+	ld (ix+#0f),#00
+	jp l0abf
+	cp #0f
+	ret c
+	ld a,(hl)
+	inc hl
+	ret
+.l0bf4 equ $ + 7
+.l0bee equ $ + 1
+.l0bed
+	db #00,#00,#00,#00,#00,#00,#00,#00
+.l0bf7 equ $ + 2
+.l0bf6 equ $ + 1
+.l0bf5
+	db #00,#00,#00,#00,#00,#00,#00,#00
+.l0c02 equ $ + 5
+	db #00,#00,#00,#00,#00,#00,#00,#00
+.l0c0c equ $ + 7
+.l0c0b equ $ + 6
+.l0c0a equ $ + 5
+.l0c09 equ $ + 4
+	db #00,#00,#00,#00,#00,#00,#00,#00
+	db #00,#00,#00,#00,#00,#00,#00,#00
+.l0c17 equ $ + 2
+	db #00,#00,#00,#00,#00,#00,#00,#00
+.l0c21 equ $ + 4
+.l0c20 equ $ + 3
+.l0c1f equ $ + 2
+.l0c1e equ $ + 1
+	db #00,#00,#00,#00,#00,#00,#00,#00
+.l0c2c equ $ + 7
+	db #00,#00,#00,#00,#00,#00,#00,#08
+.l0c2d
+	db #00,#87,#09,#00,#00,#87,#09,#01
+.l0c39 equ $ + 4
+.l0c38 equ $ + 3
+	db #00,#87,#09,#09,#00,#87,#09,#02
+.l0c44 equ $ + 7
+	db #00,#87,#09,#03,#00,#87,#09,#0a
+.l0c45
+	db #00,#87,#09,#04,#00,#87,#09,#05
+.l0c51 equ $ + 4
+	db #00,#87,#09,#06,#00,#87,#09,#07
+.l0c58 equ $ + 3
+.l0c55
+	db #3f,#97,#09,#ee,#0e,#18,#0e,#4d
+	db #0d,#8e,#0c,#da,#0b,#2f,#0b,#8f
+	db #0a,#f7,#09,#68,#09,#e1,#08,#61
+	db #08,#e9,#07,#00,#00,#00,#00,#00
+	db #00,#00,#00,#00,#00,#00,#00,#00
+	db #00,#00,#00,#90,#0c,#c4,#0c,#d8
+	db #0c,#07,#0d,#27,#0d,#47,#0d,#5d
+	db #0d,#71,#0d,#00,#bd,#09,#54,#00
+	db #b9,#09,#1e,#00,#bd,#09,#0d,#00
+	db #b9,#09,#1e,#00,#bd,#09,#54,#00
+	db #b5,#09,#3c,#00,#b9,#09,#24,#00
+	db #b5,#09,#54,#00,#31,#3c,#00,#2d
+	db #8e,#00,#25,#a9,#00,#21,#ef,#00
+	db #1d,#1c,#01,#19,#52,#01,#04,#02
+	db #bd,#16,#c9,#00,#b5,#18,#0c,#01
+	db #a9,#1a,#2d,#01,#a1,#1c,#52,#01
+	db #b0,#1d,#04,#01,#3d,#77,#00,#3d
+	db #5f,#00,#3d,#47,#00,#35,#3f,#00
+	db #35,#2f,#00,#31,#77,#00,#31,#5f
+	db #00,#31,#47,#00,#29,#3f,#00,#29
+	db #2f,#00,#1d,#77,#00,#1d,#5f,#00
+	db #1d,#47,#00,#15,#3f,#00,#15,#2f
+	db #00,#04,#00,#3d,#17,#00,#19,#57
+	db #00,#3d,#3a,#00,#19,#20,#00,#35
+	db #61,#00,#11,#41,#00,#29,#98,#00
+	db #0d,#a7,#00,#21,#c0,#00,#05,#d3
+	db #00,#04,#00,#3d,#0b,#00,#39,#2b
+	db #00,#3d,#1e,#00,#31,#0f,#00,#2d
+	db #31,#00,#29,#20,#00,#25,#4d,#00
+	db #21,#52,#00,#1d,#61,#00,#19,#68
+	db #00,#04,#09,#bd,#16,#92,#01,#b5
+	db #18,#18,#02,#a9,#1a,#5a,#02,#a1
+	db #1c,#a4,#02,#99,#1d,#f6,#02,#04
+	db #04,#bd,#16,#b4,#00,#b5,#18,#f7
+	db #00,#a9,#1a,#19,#01,#a1,#1c,#50
+	db #01,#b0,#1d,#04,#03,#39,#2a,#00
+	db #01,#6a,#00,#01,#6a,#00,#01,#6a
+	db #00,#3d,#2a,#00,#01,#6a,#00,#01
+	db #6a,#00,#3d,#2a,#00,#01,#6a,#00
+	db #2d,#2a,#00,#01,#6a,#00,#21,#2a
+	db #00,#04,#00,#00,#00,#00,#00,#00
+	db #00,#00,#00,#00,#00,#00,#00,#00
+	db #00,#00,#00,#00,#00,#00,#00
+;
+;	ds #0dac-$,#00
+;
+.l0dac		; theme 1 data
+;
+	db #b4,#0d,#00,#00,#00,#00,#35,#0e
+	db #be,#0d,#c3,#0d,#d2,#0d,#ee,#0d
+	db #0a,#0e,#ff,#00,#04,#bf,#0d,#00
+	db #35,#6d,#ff,#ff,#25,#2d,#25,#61
+	db #01,#00,#1d,#04,#bf,#0d,#00,#f9
+	db #18,#01,#00,#3d,#7d,#fe,#ff,#7d
+	db #fd,#ff,#7d,#fe,#ff,#3d,#7d,#02
+	db #00,#7d,#03,#00,#7d,#02,#00,#04
+	db #d7,#0d,#00,#b5,#19,#06,#b9,#0e
+	db #b9,#06,#35,#b1,#fc,#31,#31,#2d
+	db #2d,#2d,#29,#29,#29,#25,#25,#21
+	db #21,#1d,#19,#04,#bf,#0d,#00,#f5
+	db #18,#01,#00,#79,#ff,#ff,#f1,#18
+	db #01,#00,#75,#ff,#ff,#ed,#18,#01
+	db #00,#6d,#ff,#ff,#e5,#18,#01,#00
+	db #65,#ff,#ff,#e1,#18,#01,#00,#5d
+	db #ff,#ff,#d9,#18,#01,#00,#04,#bf
+	db #0d,#6c,#0f,#8d,#0e,#07,#01,#02
+	db #00,#01,#00,#03,#00,#0c,#aa,#0f
+	db #80,#82,#81,#40,#07,#54,#fe,#fe
+	db #05,#40,#fe,#54,#02,#02,#02,#40
+	db #09,#54,#00,#00,#07,#40,#00,#54
+	db #ff,#ff,#ff,#54,#fe,#fe,#fe,#54
+	db #fd,#fd,#fd,#54,#fc,#fc,#fc,#74
+	db #fb,#fb,#00,#f3,#fb,#54,#fa,#fa
+	db #fa,#fc,#00,#83,#00,#84,#00,#00
+	db #ea,#00,#d4,#00,#00,#00,#85,#00
+	db #54,#03,#03,#03,#00,#01,#00,#7e
+	db #0e,#99,#0e,#44,#0f,#29,#0f,#b0
+	db #0e,#dd,#0e,#f8,#0e,#0c,#50,#22
+	db #55,#5e,#45,#55,#50,#55,#50,#5e
+	db #4e,#50,#55,#5e,#45,#55,#50,#55
+	db #50,#de,#4e,#7f,#0c,#50,#12,#0c
+	db #51,#22,#0c,#50,#32,#0c,#51,#42
+	db #0c,#50,#52,#0c,#51,#62,#0c,#50
+	db #12,#0c,#51,#22,#0c,#50,#32,#0c
+	db #51,#42,#0c,#50,#52,#0c,#51,#62
+	db #0c,#50,#72,#51,#0c,#50,#82,#d1
+	db #7f,#0c,#43,#02,#72,#04,#42,#42
+	db #73,#03,#78,#00,#72,#04,#42,#73
+	db #03,#72,#04,#82,#73,#03,#78,#00
+	db #72,#04,#c2,#7f,#0c,#64,#32,#0c
+	db #64,#62,#0c,#61,#32,#0c,#61,#62
+	db #0c,#66,#32,#0c,#66,#62,#0c,#67
+	db #32,#0c,#67,#62,#0c,#64,#32,#0c
+	db #64,#62,#0c,#61,#32,#0c,#61,#62
+	db #0c,#66,#32,#0c,#66,#62,#0c,#67
+	db #32,#0c,#e7,#7f,#62,#0c,#83,#02
+	db #0c,#b2,#04,#32,#0c,#81,#12,#0c
+	db #42,#32,#0c,#f3,#03,#02,#02,#83
+	db #0c,#b1,#04,#12,#0c,#c2,#7f,#32
+	db #0c,#a4,#22,#0c,#64,#42,#5d,#f4
+	db #00,#02,#0c,#ae,#34,#22,#0c,#af
+	db #42,#0c,#ae,#39,#22,#0c,#af,#42
+	db #0c,#a4,#22,#0c,#e4,#7f,#42,#0c
+	db #e3,#7f,#32,#0c,#f8,#00,#7f,#42
+	db #4c,#40,#28,#1c,#3b,#47,#42,#43
+	db #30,#00,#00,#00,#00,#00,#00,#00
+	db #00,#00,#00,#00
+;
+;	#30cd
+;	ld hl,#0dac
+;	xor a
+;	call #0813
+;
+; #56d2 - added by Megachur
+;
+.l56d2
+	ld a,h
+	and #0f
+	ld h,a
+	jr l56e8
+.l56d8
+	ld (l56e9),a
+	ld a,l
+	cp #08
+	jr z,l56d2
+	cp #09
+	jr z,l56d2
+	cp #0a
+	jr z,l56d2
+.l56e9 equ $ + 1
+.l56e8
+	ld a,#c0
+	ld b,d
+	out (c),l
+	jp l098b
+;
+.init_music		; added by Megachur
+;
+	ld hl,l0dac
+	xor a
+	jp real_init_music
+;
+.music_info
+	db "Red Sunset - 1 (2020)(ESP Soft)(John McKlain)",0
+	db "StArkos",0
+
+	read "music_end.asm"

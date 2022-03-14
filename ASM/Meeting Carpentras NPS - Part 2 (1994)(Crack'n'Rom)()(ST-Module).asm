@@ -19,9 +19,9 @@ music_adr				equ #890e
 	ld bc,#0081
 	call #bcd7
 	xor a
-	ld (la604),a
+	ld (#a604),a
 	ld a,#84
-	ld (la605),a
+	ld (#a605),a
 	ret
 	jp l89a9
 .l892a
@@ -706,12 +706,10 @@ music_adr				equ #890e
 	db #c3,#06,#bf,#b6,#01,#c3,#06,#c6
 	db #b6,#02,#cb,#06,#cf,#b6,#03,#cb
 	db #06,#46,#02,#b6,#04,#ff
-.la604 equ $+4
-.la605 equ $+5
+; #a600
 .la600
 	db #00,#00,#00,#00,#00,#00,#00,#00
 	db #00,#00,#00,#00,#00,#00,#00,#00
-
 ;
 .music_info
 	db "Meeting Carpentras NPS - Part 2 (1994)(Crack'n'Rom)()",0
