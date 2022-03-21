@@ -1,6 +1,6 @@
 ; big'o'full à revoir !
 ; ---------------------------------------------------------------------------------
-; - CPC Mix Menu - $VER 2.0 - (c) 2008-2009-2012-2018 Megachur
+; - CPC Mix Menu - $VER 2.1 - (c) 2008-2022 Megachur
 ; ---------------------------------------------------------------------------------
 nolist 
 ; ---------------------------
@@ -86,10 +86,8 @@ next_music
 	out (c),a
 	out (c),c
 
-	ld hl,crtc_regs_value+12
-	ld (hl),CRTC_SCREEN_ADDRESS/#100
-	inc hl
-	ld (hl),CRTC_SCREEN_ADDRESS
+	ld hl,CRTC_SCREEN_ADDRESS
+	ld (crtc_regs_value+11),hl
 
 	ld hl,crtc_regs_value
 	call set_crtc_regs
@@ -391,7 +389,7 @@ find_information
 	ld a,(hl)
 	or a
 	jr nz,comments
-	ld hl,text_no_comments
+	ld hl,text_no_comment
 
 comments
 	call print_text
@@ -523,7 +521,7 @@ no_more_extended_block_restore_nb equ $+1
 	ld a,#00
 
 	ld hl,file_temp_memory_adr_save
-	ld de,screen_first_address
+	ld de,SCREEN_FIRST_ADDRESS
 move_memory_restore
 	ld bc,#400
 	ldir
@@ -549,7 +547,11 @@ file_loaded_is_not_to_long_restore
 
 ; end < #c000
 
-	ld hl,SCREEN_FIRST_ADDRESS
+;	ld hl,SCREEN_FIRST_ADDRESS
+	ld h,b
+	ld l,c
+;	ld a,CRTC_SCREEN_ADDRESS/#100		; already set at next_music !
+;	ld (crtc_regs_value+12),a
 
 	jr copy_file_memory_to_right_place
 
@@ -577,17 +579,15 @@ music_adrbegin_sup_c000
 	add #c0
 	ld (print_screen_address+1),a
 
-	ld hl,crtc_regs_value+12
-	ld (hl),SCREEN_CRTC_2ND_ADDRESS/#100
-	inc hl
-	ld (hl),SCREEN_CRTC_2ND_ADDRESS
-
 	ld hl,draw_freq_spectrum_analyzer_second_address
 	ld (draw_spectrum_analyzer_call_draw),hl
 	ld hl,draw_spectrum_analyzer_second_address_table
 	ld (draw_spectrum_analyzer_address),hl
 
-	ld hl,screen_second_address
+	ld a,SCREEN_CRTC_2ND_ADDRESS/#100
+	ld (crtc_regs_value+12),a
+
+	ld hl,SCREEN_SECOND_ADDRESS
 
 	jr copy_file_memory_to_right_place
 
@@ -597,11 +597,6 @@ music_adrend_sup_8000
 	add #40
 	ld (print_screen_address+1),a
 
-	ld hl,crtc_regs_value+12
-	ld (hl),SCREEN_CRTC_3RD_ADDRESS/#100
-	inc hl
-	ld (hl),SCREEN_CRTC_3RD_ADDRESS
-
 	ld hl,draw_freq_spectrum_analyzer_third_address
 	ld (draw_spectrum_analyzer_call_draw),hl
 	ld hl,draw_spectrum_analyzer_third_address_table
@@ -610,7 +605,10 @@ music_adrend_sup_8000
 	ld a,#01
 	ld (screen_third_activate),a
 
-	ld hl,screen_third_address+MINIMUM_PRESERVE_MEMORY_LENGTH
+	ld a,SCREEN_CRTC_3RD_ADDRESS/#100
+	ld (crtc_regs_value+12),a
+
+	ld hl,SCREEN_THIRD_ADDRESS+MINIMUM_PRESERVE_MEMORY_LENGTH
 
 copy_file_memory_to_right_place
 	ld (screen_address_selected),hl
@@ -1432,8 +1430,8 @@ load_error_value equ $+1
 	jr z,error_load_wait
 
 	ld a,(fdc_set_drive_head_value)
-	and %00000100
-	xor %00000100
+	and %00000001
+	xor %00000001
 	call fdc_set_drive_head_number
 	add a,48
 	ld (music_insert_disk_drive_head_text),a
@@ -2199,10 +2197,12 @@ l0000_bank_5		equ $-l0000
 ; ---------------------------
 	ld bc,#7fc5
 	out (c),c
+	ei
 	ret
 ; ---------------------------
 .l0000_bank_0		equ $-l0000
 ; ---------------------------
+	di
 	push bc
 	ld bc,#7fc0
 	out (c),c

@@ -1,5 +1,5 @@
 ;-------------------------------------------------------------------------------
-; CPCMix_Menu_data.asm - $VER 1.3
+; CPCMix_Menu_data.asm - $VER 1.4
 ;-------------------------------------------------------------------------------
 INDEX_MUSIC_ADR		equ 0
 INDEX_MUSIC_REAL_ADR	equ INDEX_MUSIC_ADR+2
@@ -41,7 +41,7 @@ FORCE_CURRENTMUSIC_DURATION		equ #03		; three minutes
 ;-------------------------------------------------------------------------------
 text_intro
 	db 31,SCREEN_WIDTH-42/2,0
-	db "- Megachur presents Amstrad CPC Mix v2.0 -"
+	db "- Megachur presents Amstrad CPC Mix v2.1 -"
 	db 31,0,2,0
 text_music_timer_count
 	db 31,SCREEN_WIDTH-08,0,0
@@ -107,8 +107,8 @@ text_locate_psg_values
 	db 31,SCREEN_WIDTH-68/2+34,17,0
 text_cr
 	db 10,13,0
-text_no_comments
-	db "No comments",0
+text_no_comment
+	db "No comment",0
 ;-------------------------------------------------------------------------------
 DRAW_SPECTRUM_ANALYZER_FIRST_ADDRESS	equ SCREEN_WIDTH*18+SCREEN_FIRST_ADDRESS+#3800
 DRAW_SPECTRUM_ANALYZER_SECOND_ADDRESS	equ SCREEN_WIDTH*18+SCREEN_SECOND_ADDRESS+#3800
