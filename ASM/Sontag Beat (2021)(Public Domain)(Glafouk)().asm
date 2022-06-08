@@ -1,13 +1,13 @@
 ; Music of Sontag Beat (2021)(Public Domain)(Glafouk)()
-; Ripped by Megachur the 19/03/2022
+; Ripped by Megachur the 10/04/2022
 ; $VER 1.5
 
 IFDEF FILENAME_WRITE
 	write "SONTAGBE.BIN"
 ENDIF
 
-MUSIC_DATE_RIP_DAY		equ 19
-MUSIC_DATE_RIP_MONTH	equ 03
+MUSIC_DATE_RIP_DAY		equ 10
+MUSIC_DATE_RIP_MONTH	equ 04
 MUSIC_DATE_RIP_YEAR		equ 2022
 music_adr				equ #8000
 
@@ -57,7 +57,7 @@ music_adr				equ #8000
 	ld a,l
 	or h
 	jr nz,l8044
-	pop hl		; reset music
+	pop hl
 	ld sp,hl
 	pop hl
 .l8044
@@ -134,6 +134,7 @@ music_adr				equ #8000
 .l80c7
 	or a
 	jp l815c
+.l80cb
 	ld a,#37
 	ld (l80c7),a
 	ld (l80c5),hl
@@ -143,6 +144,7 @@ music_adr				equ #8000
 .l80d8
 	or a
 	jp l815c
+.l80dc
 	ld a,#37
 	ld (l80d8),a
 	ld (l80d6),hl
@@ -152,6 +154,7 @@ music_adr				equ #8000
 .l80e9
 	or a
 	jp l815c
+.l80ed
 	ld a,#37
 	ld (l80e9),a
 	ld (l80e7),hl
@@ -658,22 +661,23 @@ music_adr				equ #8000
 	ret nc
 	ld (l83ac),a
 	ret
-.l83b0 equ $ + 4
 .l83af equ $ + 3
 .l83ae equ $ + 2
 .l83ad equ $ + 1
 .l83ac
-	db #00,#00,#00,#00,#cb,#80,#dc,#80
-	db #ed,#80,#00,#00,#00,#00,#00,#00
-	db #00,#00,#00,#00,#00,#00,#00,#00
-	db #00,#00,#00,#00,#00,#00,#00,#00
-	db #00,#00,#00,#00,#00,#00,#00,#00
-	db #00,#00,#00,#00,#00,#00,#00,#00
-	db #00,#00,#00,#00,#00,#00,#00,#00
-	db #00,#00,#00,#00,#00,#00,#00,#00
-	db #00,#00,#00,#00,#00,#00,#00,#00
-	db #00,#00,#00,#00,#00,#00,#00,#00
 	db #00,#00,#00,#00
+.l83b0
+	dw l80cb,l80dc,l80ed
+	db #00,#00,#00,#00,#00,#00,#00,#00
+	db #00,#00,#00,#00,#00,#00,#00,#00
+	db #00,#00,#00,#00,#00,#00,#00,#00
+	db #00,#00,#00,#00,#00,#00,#00,#00
+	db #00,#00,#00,#00,#00,#00,#00,#00
+	db #00,#00,#00,#00,#00,#00,#00,#00
+	db #00,#00,#00,#00,#00,#00,#00,#00
+	db #00,#00,#00,#00,#00,#00,#00,#00
+	db #00,#00,#00,#00,#00,#00,#00,#00
+	db #00,#00
 .l8400
 	db #80,#03,#40,#42,#0f,#00,#cc,#00
 	db #04,#90,#04,#90,#04,#90,#78,#00
@@ -1216,19 +1220,14 @@ music_adr				equ #8000
 	db #00,#31,#31,#61,#d5,#00,#31,#31
 	db #61,#fd,#00,#31,#31,#61,#1c,#01
 	db #31,#31,#61,#5f,#00,#31,#31,#00
-	db #00,#00,#00,#00,#00,#00,#00,#00
-
-; #94f8
-;	ld hl,#8400
-;	ld a,#00
-;	call #8000
-;
-;
-.init_music		; added by Megachur
+	db #00
+ ;
+.init_music 	; #94f8 - added by Megachur
 ;
 	ld hl,l8400
 	ld a,#00
 	jp real_init_music
+
 ;
 .music_info
 	db "Sontag Beat (2021)(Public Domain)(Glafouk)",0
