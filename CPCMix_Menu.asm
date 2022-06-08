@@ -12,7 +12,7 @@ begin_menu		equ #4000
 ; USE_COMPACTER	equ 1
 ; DEBUG		equ 1
 ; TODO		equ 1
- SAVE_FILE	equ 1
+SAVE_FILE	equ 1
 ; ---------------------------
 	org begin_menu-#1c	; #1c = start_player-start_player_in_memory
 
@@ -32,13 +32,13 @@ start_player_in_memory:
 
 	ld hl,start_player
 	ld de,#0100
-	ld bc,end_player-start_player+1
+	ld bc,end_player-start_player
 	ldir
 	ld bc,#7fc5
 	out (c),c
 	ld hl,#0100
 	ld de,start_player
-	ld bc,end_player-start_player+1
+	ld bc,end_player-start_player
 	ldir
 ; ---------------------------
 start_player
@@ -67,15 +67,15 @@ next_music
 	ld hl,#0038
 	ld (hl),#c3
 	inc hl
-	ld (hl),z80_interruption
+	ld (hl),z80_int
 	inc hl
-	ld (hl),z80_interruption/#100
+	ld (hl),z80_int/#100
 
 	call psg_sound_reset	; lbca7
 
 	ld bc,#7f00+%10011100+2	; Set Interrupt and Upper/Lower rom area disable + mode 2
 	out (c),c
-	xor a
+	xor a					; Set colors to black
 	out (c),a
 	ld c,#54
 	out (c),c
@@ -152,20 +152,20 @@ first_loop_tempo equ $+1
 	ld (first_loop_tempo),a
 
 	ld a,(keyboard_line_press+keyboard_line_0)
-	bit key_up,a
+	bit KEY_UP,a
 	jr z,not_key_up
 	call navigation_menu_up
 	jr navigation_menu_loop
 
 not_key_up
-	bit key_down,a
+	bit KEY_DOWN,a
 	jr z,not_key_down
 	call navigation_menu_down
 	jr navigation_menu_loop
 
 not_key_down
 	ld a,(keyboard_line_press+keyboard_line_5)
-	bit key_space,a
+	bit KEY_SPACE,a
 	jr z,not_key_space
 	ld hl,(current_menu_item)
 	ld a,(hl)
@@ -175,7 +175,7 @@ not_key_down
 
 not_key_space
 	ld a,(keyboard_line_press+keyboard_line_2)
-	bit key_return,a
+	bit KEY_RETURN,a
 	jr z,navigation_menu_loop
 
 refresh_directory
@@ -274,7 +274,6 @@ Megachur_check_fails
 	ld hl,FILENAME_LENGTH
 	ld de,(current_menu_item)
 	add hl,de
-
 	ldir
 
 	ld b,100
@@ -821,12 +820,12 @@ tempo equ $+1
 	ld (tempo),a
 
 	ld a,(keyboard_line_press+keyboard_line_8)
-	bit key_esc,a
+	bit KEY_ESC,a
 	jp nz,next_music
 
 test_key_space ; load and play next music
 	ld a,(keyboard_line_press+keyboard_line_5)
-	bit key_space,a
+	bit KEY_SPACE,a
 	jr z,test_key_left
 
 	ld hl,current_music_end
@@ -834,7 +833,7 @@ test_key_space ; load and play next music
 
 test_key_left ; play the previous theme of the current music
 	ld a,(keyboard_line_press+keyboard_line_1)
-	bit key_left,a
+	bit KEY_LEFT,a
 	jr z,test_key_right
 
 	call change_theme_dec
@@ -849,7 +848,7 @@ test_key_right
 ; else play first theme of the current music
 ;
 	ld a,(keyboard_line_press+keyboard_line_0)
-	bit key_right,a
+	bit KEY_RIGHT,a
 	jr z,test_key_r
 
 	call change_theme_inc
@@ -859,7 +858,7 @@ test_key_r
 ; en/disable music loop
 ;
 	ld a,(keyboard_line_press+keyboard_line_6)
-	bit key_r,a
+	bit KEY_R,a
 	jr z,test_key_f
 	ld a,(set_music_loop_test)
 	xor #ff
@@ -879,7 +878,7 @@ test_key_f
 ; en/disable a duration of only three minutes of the theme of the music
 ;
 	ld a,(keyboard_line_press+keyboard_line_6)
-	bit key_f,a
+	bit KEY_F,a
 	jr z,test_key_p
 	ld a,(force_currentmusic_duration_active)
 	xor #01
@@ -902,7 +901,7 @@ test_key_p
 ; disable the display of spectrum analyzer
 ;
 	ld a,(keyboard_line_press+keyboard_line_3)
-	bit key_p,a
+	bit KEY_P,a
 	jr z,test_key_s
 
 	ld hl,draw_spectrum_analyzer
@@ -2133,8 +2132,7 @@ draw_freq_spectrum_analyzer_third_address
 ;-------------------------------------------------------------------------------
 .interrupt
 ;-------------------------------------------------------------------------------
-	read "../include/z80_interruption.asm"
-	read "CPCMix_Menu_interruption.asm"
+	read "CPCMix_Menu_int.asm"
 ;-------------------------------------------------------------------------------
 .print_text_CRx2
 ;-------------------------------------------------------------------------------
@@ -2185,13 +2183,6 @@ music_end_address	equ $-l0000+1
 	db #18,l0000_bank_5-$+l0000-1 ; jr l0000_bank_5
 l0000_not_exist_music_end
 	dec a
-	db #18,l0000_bank_5-$+l0000-1 ; jr l0000_bank_5
-; ---------------------------
-call_init_music		equ $-l0000
-; ---------------------------
-	call l0000_bank_0
-call_init_music_adr	equ $-l0000+1
-	call 0		; call init_music_adr
 ; ---------------------------
 l0000_bank_5		equ $-l0000
 ; ---------------------------
@@ -2199,6 +2190,13 @@ l0000_bank_5		equ $-l0000
 	out (c),c
 	ei
 	ret
+; ---------------------------
+call_init_music		equ $-l0000
+; ---------------------------
+	call l0000_bank_0
+call_init_music_adr	equ $-l0000+1
+	call 0		; call init_music_adr
+	db #18,l0000_bank_5-$+l0000-1 ; jr l0000_bank_5
 ; ---------------------------
 .l0000_bank_0		equ $-l0000
 ; ---------------------------
