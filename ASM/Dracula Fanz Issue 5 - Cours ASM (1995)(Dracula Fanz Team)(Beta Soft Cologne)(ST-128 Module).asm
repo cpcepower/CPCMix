@@ -434,7 +434,7 @@ music_adr				equ #5cba
 	ld c,a
 	ld a,(ix+#0b)
 	ld (ix+#09),a
-	cp (ix+#1e)		; cp #1e -> bug maxam winape assembler !???!
+	db #dd:cp #1e 	; #dd ignored by maxam winape assembler !???!
 	and c
 	jp p,l5fbe
 	xor a
