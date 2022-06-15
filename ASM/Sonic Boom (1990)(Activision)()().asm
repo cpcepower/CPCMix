@@ -10,8 +10,6 @@ MUSIC_DATE_RIP_DAY		equ 08
 MUSIC_DATE_RIP_MONTH	equ 03
 MUSIC_DATE_RIP_YEAR		equ 2019
 music_adr				equ #8000
-FIRST_THEME				equ 1
-LAST_THEME				equ 1
 
 	read "music_header.asm"
 
@@ -20,9 +18,9 @@ LAST_THEME				equ 1
 .l8001 equ $ + 1
 .l8000
 	db #00,#00,#00,#e8,#82,#00
+
 ;
 .real_init_music
-.play_music
 ;
 	ld de,l8005
 	ld a,(de)
@@ -91,7 +89,10 @@ LAST_THEME				equ 1
 	ld (l8003),de
 	ld (l80fc),de
 	jp l807d
+;
+.play_music
 .l807d
+;
 	call l80a2
 	ld hl,l8001
 	ld a,(hl)
@@ -519,7 +520,22 @@ LAST_THEME				equ 1
 	db #99,#ff,#91,#3a,#ff,#92,#4d,#99
 	db #ff,#91,#3a,#ff,#91,#3a,#ff,#92
 	db #4d,#ff,#92,#4d,#ff
+
 ;
+.init_music		; added by Megachur
+;
+	ld a,#01
+	ld (l8000),a
+	ld a,#38
+	ld (l8164),a
+	jp real_init_music
+;
+.stop_music
+;
+	xor a
+	ld (l8000),a
+	jp real_init_music
+
 ; #8a4e
 ; ld a,#01
 ; ld (#8000),a
@@ -529,11 +545,7 @@ LAST_THEME				equ 1
 ; xor a
 ; ld (#8000),a
 ; call #9a20
-;
-.init_music
-;
-	ld (l8000),a
-	jp real_init_music
+
 ;
 .music_info
 	db "Sonic Boom (1990)(Activision)()",0
